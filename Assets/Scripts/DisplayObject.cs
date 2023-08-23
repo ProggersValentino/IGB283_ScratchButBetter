@@ -5,11 +5,21 @@ using UnityEngine;
 public class DisplayObject : MonoBehaviour
 {
     private Mesh mesh;
+    public Material mat; //need to set material otherwise the mesh will ignore the colours being set here as default mesh doesnt support colours 
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //add a meshfilter and meshrenderer to the empty GameObject
+        gameObject.AddComponent<MeshFilter>();
+        gameObject.AddComponent<MeshRenderer>();
+     
+        //set mat to the material we have selected 
+        GetComponent<MeshRenderer>().material = mat;
+
         mesh = GetComponent<MeshFilter>().mesh;
+
         Display();
     }
 
@@ -67,5 +77,33 @@ public class DisplayObject : MonoBehaviour
             17,18,19,
             21,22,20
         };
+
+        mesh.colors = new Color[]
+        {
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.4f, 0.3f, 0.7f),
+            new Color(0.4f, 0.3f, 0.7f),
+            new Color(0.4f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+            new Color(0.8f, 0.3f, 0.7f),
+        };
+
     }
 }
