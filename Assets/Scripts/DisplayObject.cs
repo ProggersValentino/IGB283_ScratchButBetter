@@ -5,6 +5,7 @@ using UnityEngine;
 public class DisplayObject : MonoBehaviour
 {
     private Mesh mesh;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,23 +24,48 @@ public class DisplayObject : MonoBehaviour
         //display object 
         
         //define object
-        //mesh.vertices = new Vector3[] {};
+        mesh.vertices = new Vector3[] {
+            new Vector3(-7, 18, 0), 
+            new Vector3(-7, 5, 0),
+            new Vector3(16, 5, 0),
+            new Vector3(16, 18, 0),
+            new Vector3(-11, -4, 0),
+            new Vector3(-11, 0, 0),
+            new Vector3(-8, 0, 0),
+            new Vector3(-8, -6, 0),
+            new Vector3(-4, -6, 0),
+            new Vector3(-4, -9, 0),
+            new Vector3(3, -9, 0),
+            new Vector3(11, -6, 0),
+            new Vector3(11, -9, 0),
+            new Vector3(15, -9, 0),
+            new Vector3(14, -4, 0),
+            new Vector3(17, -3, 0),
+            new Vector3(16, 0 , 0),
+            new Vector3(17, 0, 0),
+            new Vector3(20, 0, 0),
+            new Vector3(20, -4, 0),
+            new Vector3(5, -6, 0),
+            new Vector3(3, -6, 0),
+            new Vector3(5, 5, 0),            
+        };
 
         //specify triangle mesh
-        /*mesh.triangles = new int[]{
-            0,1,5,
-            4,2,1,
-            3,6,2,
-            8,7,6,
-            9,10,7,
-            0,19,10,
-            14,12,11,
-            14,13,12,
-            18,16,15,
-            18,17,16,
-            0,24,19,
-            24,20,19,
-            23,22,21,
-        };*/
+        mesh.triangles = new int[]{
+            1,0,2,
+            0,3,2,
+            4,5,6,
+            6,8,7,
+            7,8,9,
+            8,10,9,
+            8,11,10,
+            10,11,12,
+            11,13,12,
+            11,15,13,
+            14,16,15,
+            16,17,15,
+            17,18,19,
+            21,22,20
+        };
     }
 }
