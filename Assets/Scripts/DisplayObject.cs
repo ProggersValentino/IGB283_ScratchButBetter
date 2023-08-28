@@ -6,7 +6,18 @@ public class DisplayObject : MonoBehaviour
 {
     private Mesh mesh;
     public Material mat; //need to set material otherwise the mesh will ignore the colours being set here as default mesh doesnt support colours 
+    //Angle by which the triangle will rotate each frame
+    public float angle = 10f;
 
+    //changes in x and y axis
+    public float dx;
+    public float dy;
+
+    //scale factors in x and y direction
+    public float sx;
+    public float sy;
+
+    public float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +32,54 @@ public class DisplayObject : MonoBehaviour
         mesh = GetComponent<MeshFilter>().mesh;
 
         Display();
+        Scale();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Get the vertices from the matrix
+        Vector3[] vertices = mesh.vertices;
+
+        // Get rotation   
+        Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
+        Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
+        Matrix3x3 S = IGB283Transform.Scale(1.0f, 1.0f);
+        Matrix3x3 M = T*R*S;
+
+        //Rotate each point in the mesh to its new position
+        for(int i = 0; i < vertices.Length; i++)
+        {
+            //vertices[i] = R.MultiplyPoint(vertices[i]);
+            vertices[i] = M.MultiplyPoint(vertices[i]);
+        } 
+
+        //Set the vertices in the mesh to their new position
+        mesh.vertices = vertices;
+
+        // Recalculate the bounding volume
+        mesh.RecalculateBounds();
+    }
+
+    void Scale()
+    {
+       // Get the vertices from the matrix
+        Vector3[] vertices = mesh.vertices;
+
+        // Get Scale
+        Matrix3x3 M = IGB283Transform.Scale(sx, sy);
+
+        //Rotate each point in the mesh to its new position
+        for(int i = 0; i < vertices.Length; i++)
+        {
+            vertices[i] = M.MultiplyPoint(vertices[i]);
+        } 
+
+        //Set the vertices in the mesh to their new position
+        mesh.vertices = vertices;
+
+        // Recalculate the bounding volume
+        mesh.RecalculateBounds(); 
     }
 
     void Display()
