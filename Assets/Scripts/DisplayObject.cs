@@ -19,6 +19,9 @@ public class DisplayObject : MonoBehaviour
 
     public float speed;
 
+    public float end;
+    private float distanceTravelled = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +48,7 @@ public class DisplayObject : MonoBehaviour
         Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
         Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
         Matrix3x3 S = IGB283Transform.Scale(1.0f, 1.0f);
-        Matrix3x3 M = T*R*S;
+        Matrix3x3 M = T;
 
         //Rotate each point in the mesh to its new position
         for(int i = 0; i < vertices.Length; i++)
@@ -59,6 +62,15 @@ public class DisplayObject : MonoBehaviour
 
         // Recalculate the bounding volume
         mesh.RecalculateBounds();
+
+        //Move between two points
+        if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
+        {
+            dx = -dx;
+            end = -end;
+        }
+        distanceTravelled += dx * speed * Time.deltaTime;
+        Debug.Log("Distance Travelled: " + distanceTravelled + " dx: " + dx);
     }
 
     void Scale()
