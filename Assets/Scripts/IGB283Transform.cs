@@ -15,7 +15,20 @@ public class IGB283Transform : MonoBehaviour
     {
         
     }
+    
+    
+    //returns the matrix inversed
+    public static Matrix3x3 GetInverse(Matrix3x3 matrix)
+    {
+        Matrix3x3 InverseMatrix = new Matrix3x3();
 
+        InverseMatrix = matrix;
+
+        Matrix3x3 inverseMatrixInverse = InverseMatrix.inverse;
+
+        return inverseMatrixInverse;
+    }
+    
     // Rotate a vertex around the origin
     public static Matrix3x3 Rotate (float angle)
     {

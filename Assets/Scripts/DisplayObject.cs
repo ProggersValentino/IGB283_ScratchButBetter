@@ -25,6 +25,15 @@ public class DisplayObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
+        //invere time everybody
+        Matrix3x3 IT = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime).inverse;
+        Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
+        
+        
+        Matrix3x3 M = T * R * IT;
+        
+        
         //add a meshfilter and meshrenderer to the empty GameObject
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
@@ -36,6 +45,12 @@ public class DisplayObject : MonoBehaviour
 
         Display();
         Scale();
+        
+        
+        Debug.Log(IT);
+        Debug.Log(T);
+        Debug.Log(R);
+        Debug.Log(M);
     }
 
     // Update is called once per frame
@@ -48,8 +63,22 @@ public class DisplayObject : MonoBehaviour
         Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
         Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
         Matrix3x3 S = IGB283Transform.Scale(1.0f, 1.0f);
-        Matrix3x3 M = T;
+        
+        //invere time everybody
+        Matrix3x3 IT = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime).inverse;
+        
+        Matrix3x3 M = T * R * IT;
 
+        // //Move between two points
+        // if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
+        // {
+        //     dx = -dx;
+        //     end = -end;
+        // }
+        // distanceTravelled += dx * speed * Time.deltaTime;
+        // Debug.Log("Distance Travelled: " + distanceTravelled + " dx: " + dx);
+        
+        
         //Rotate each point in the mesh to its new position
         for(int i = 0; i < vertices.Length; i++)
         {
@@ -62,15 +91,9 @@ public class DisplayObject : MonoBehaviour
 
         // Recalculate the bounding volume
         mesh.RecalculateBounds();
-
-        //Move between two points
-        if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
-        {
-            dx = -dx;
-            end = -end;
-        }
-        distanceTravelled += dx * speed * Time.deltaTime;
-        Debug.Log("Distance Travelled: " + distanceTravelled + " dx: " + dx);
+        
+        Debug.Log("M: " + M);
+        
     }
 
     void Scale()
