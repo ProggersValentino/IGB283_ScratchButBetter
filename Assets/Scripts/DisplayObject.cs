@@ -9,9 +9,8 @@ public class DisplayObject : MonoBehaviour
     //Angle by which the triangle will rotate each frame
     public float angle = 10f;
 
-    //changes in x and y axis
-    public float dx;
-    public float dy;
+    // Offset to the center of the rectangle
+    private Vector3 offset = new Vector3(0.1f, 0, 0);
 
     //scale factors in x and y direction
     public float sx;
@@ -24,16 +23,7 @@ public class DisplayObject : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
-        //invere time everybody
-        Matrix3x3 IT = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime).inverse;
-        Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
-        
-        
-        Matrix3x3 M = T * R * IT;
-        
-        
+    {       
         //add a meshfilter and meshrenderer to the empty GameObject
         gameObject.AddComponent<MeshFilter>();
         gameObject.AddComponent<MeshRenderer>();
@@ -45,12 +35,6 @@ public class DisplayObject : MonoBehaviour
 
         Display();
         Scale();
-        
-        
-        Debug.Log(IT);
-        Debug.Log(T);
-        Debug.Log(R);
-        Debug.Log(M);
     }
 
     // Update is called once per frame
@@ -61,22 +45,13 @@ public class DisplayObject : MonoBehaviour
 
         // Get rotation   
         Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
-        Matrix3x3 T = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime);
+        Matrix3x3 T2 = IGB283Transform.Translate(mesh.bounds.center + offset);
         Matrix3x3 S = IGB283Transform.Scale(1.0f, 1.0f);
         
         //invere time everybody
-        Matrix3x3 IT = IGB283Transform.Translate(dx * speed * Time.deltaTime, dy * speed * Time.deltaTime).inverse;
+        Matrix3x3 T = IGB283Transform.Translate(-mesh.bounds.center);
         
-        Matrix3x3 M = T * R * IT;
-
-        // //Move between two points
-        // if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
-        // {
-        //     dx = -dx;
-        //     end = -end;
-        // }
-        // distanceTravelled += dx * speed * Time.deltaTime;
-        // Debug.Log("Distance Travelled: " + distanceTravelled + " dx: " + dx);
+        Matrix3x3 M = T2 * R * T;     
         
         
         //Rotate each point in the mesh to its new position
@@ -91,6 +66,16 @@ public class DisplayObject : MonoBehaviour
 
         // Recalculate the bounding volume
         mesh.RecalculateBounds();
+
+        //Move between two points
+        if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
+        {
+            offset = -offset;
+            end = -end;
+        }
+
+        distanceTravelled += offset.x;
+        Debug.Log("Distance Travelled: " + distanceTravelled);
         
         Debug.Log("M: " + M);
         
