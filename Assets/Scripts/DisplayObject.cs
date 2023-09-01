@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class DisplayObject : MonoBehaviour
 
     public float speed;
 
-    public float end;
+    public float end { get; set; } // getter and setter methods for end property which get sets in ShapeSpawner for each clone 
     private float distanceTravelled = 0;
 
     // Start is called before the first frame update
@@ -68,16 +69,24 @@ public class DisplayObject : MonoBehaviour
         mesh.RecalculateBounds();
 
         //Move between two points
-        if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
+        // if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
+        // {
+        //     offset = -offset;
+        //     end = -end;
+        // }
+        
+        if(Math.Abs(distanceTravelled) >= Math.Abs(end) && end != 0)
         {
+            Debug.Log("hi" + distanceTravelled);
             offset = -offset;
-            end = -end;
+            end = 0;
         }
+        
 
         distanceTravelled += offset.x;
         Debug.Log("Distance Travelled: " + distanceTravelled);
         
-        Debug.Log("M: " + M);
+        // Debug.Log("M: " + M);
         
     }
 

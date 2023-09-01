@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,4 +71,21 @@ public class IGB283Transform : MonoBehaviour
 
         return matrix;
     }
+    
+    //calculate magnitude from 
+    public double getMagnitude(Vector3 V1)
+    {
+        double magnitude = Math.Sqrt((V1.x * V1.x) + (V1.y * V1.y) + (V1.z * V1.z));
+
+        return magnitude;
+    }
+    
+    //returns the vector from points 
+    public Vector3 getVectorFromPoints(Vector3 Q, Vector3 P)
+    {
+        Vector3 V = P - Q;
+
+        return V;
+    }
+    
 }
