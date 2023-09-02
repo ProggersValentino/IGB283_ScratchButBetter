@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DisplayObject : MonoBehaviour
@@ -10,18 +11,25 @@ public class DisplayObject : MonoBehaviour
     //Angle by which the triangle will rotate each frame
     public float angle = 10f;
 
+    // public static float speed;
+    
     // Offset to the center of the rectangle
     private Vector3 offset = new Vector3(0.1f, 0, 0);
+    private Vector3 scaleOffset = new Vector3(0.01f, 0.01f);
+
+    public float dx;
 
     //scale factors in x and y direction
     public float sx;
     public float sy;
 
-    public float speed;
+    
 
-    public float end { get; set; } // getter and setter methods for end property which get sets in ShapeSpawner for each clone 
+    public float end; // getter and setter methods for end property which get sets in ShapeSpawner for each clone 
     private float distanceTravelled = 0;
-
+    //definingh the colours array which length is set based on the amount of vertices
+    private Color[] colours;
+    
     // Start is called before the first frame update
     void Start()
     {       
@@ -36,6 +44,12 @@ public class DisplayObject : MonoBehaviour
 
         Display();
         Scale();
+
+       colours = new Color[mesh.vertices.Length];
+
+       //setting the scalingDistance
+       dx = offset.x;
+
     }
 
     // Update is called once per frame
@@ -44,15 +58,17 @@ public class DisplayObject : MonoBehaviour
         // Get the vertices from the matrix
         Vector3[] vertices = mesh.vertices;
 
+        dx = dx + scaleOffset.x;
+        
         // Get rotation   
         Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
         Matrix3x3 T2 = IGB283Transform.Translate(mesh.bounds.center + offset);
-        Matrix3x3 S = IGB283Transform.Scale(1.0f, 1.0f);
+        Matrix3x3 S = IGB283Transform.Scale(1f + scaleOffset.x, 1f + scaleOffset.y);
         
         //invere time everybody
         Matrix3x3 T = IGB283Transform.Translate(-mesh.bounds.center);
         
-        Matrix3x3 M = T2 * R * T;     
+        Matrix3x3 M = T2 * R * T * S;
         
         
         //Rotate each point in the mesh to its new position
@@ -67,26 +83,27 @@ public class DisplayObject : MonoBehaviour
 
         // Recalculate the bounding volume
         mesh.RecalculateBounds();
-
-        //Move between two points
-        // if(Mathf.Abs(distanceTravelled) >= Mathf.Abs(end))
-        // {
-        //     offset = -offset;
-        //     end = -end;
-        // }
         
-        if(Math.Abs(distanceTravelled) >= Math.Abs(end) && end != 0)
+        //changing colours dynamically
+        ColorWheel();
+        
+        //Move between two points
+        if(distanceTravelled >= end  || distanceTravelled < 0)
         {
             Debug.Log("hi" + distanceTravelled);
             offset = -offset;
-            end = 0;
+            scaleOffset = -scaleOffset;
+            // dx = -dx;
+            // scaleOffset.x = 1/scaleOffset.x;
+            // scaleOffset.y = 1/scaleOffset.y;
         }
         
-
-        distanceTravelled += offset.x;
+        distanceTravelled += (offset.x + scaleOffset.x);
         Debug.Log("Distance Travelled: " + distanceTravelled);
         
         // Debug.Log("M: " + M);
+        //end = 30
+        // end * scaleoffset
         
     }
 
@@ -160,32 +177,48 @@ public class DisplayObject : MonoBehaviour
             21,22,20
         };
 
-        mesh.colors = new Color[]
-        {
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.4f, 0.3f, 0.7f),
-            new Color(0.4f, 0.3f, 0.7f),
-            new Color(0.4f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-            new Color(0.8f, 0.3f, 0.7f),
-        };
+        mesh.colors = colours;
+        // {
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.4f, 0.3f, 0.7f),
+        //     new Color(0.4f, 0.3f, 0.7f),
+        //     new Color(0.4f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        //     new Color(0.8f, 0.3f, 0.7f),
+        // };
 
     }
+
+    public void ColorWheel()
+    {
+        Color startColor = new Color(0.4f, 0.3f, 0.7f);
+        Color endColor = new Color(0.6f, 0.9f, 0.7f);
+
+        float normalizedColor = distanceTravelled / end;
+
+        for (int i = 0; i < mesh.vertices.Length; i++)
+        {
+            colours[i] = Color.Lerp(startColor, endColor, normalizedColor);
+        }
+
+        mesh.colors = colours;
+    }
+    
 }
