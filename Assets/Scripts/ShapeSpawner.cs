@@ -26,6 +26,7 @@ public class ShapeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //getting the needed scripts to calcualte 
         transformScript = GetComponent<IGB283Transform>();
         DO = shape.GetComponent<DisplayObject>();
         
