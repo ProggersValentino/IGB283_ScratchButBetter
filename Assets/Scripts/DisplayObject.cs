@@ -17,8 +17,6 @@ public class DisplayObject : MonoBehaviour
     private Vector3 offset = new Vector3(0.1f, 0, 0);
     private Vector3 scaleOffset = new Vector3(0.01f, 0.01f);
 
-    public float dx;
-
     //scale factors in x and y direction
     public float sx;
     public float sy;
@@ -26,7 +24,7 @@ public class DisplayObject : MonoBehaviour
     
 
     public float end; // getter and setter methods for end property which get sets in ShapeSpawner for each clone 
-    private float distanceTravelled = 0;
+
     //definingh the colours array which length is set based on the amount of vertices
     private Color[] colours;
     
@@ -47,9 +45,6 @@ public class DisplayObject : MonoBehaviour
 
        colours = new Color[mesh.vertices.Length];
 
-       //setting the scalingDistance
-       dx = offset.x;
-
     }
 
     // Update is called once per frame
@@ -57,8 +52,6 @@ public class DisplayObject : MonoBehaviour
     {
         // Get the vertices from the matrix
         Vector3[] vertices = mesh.vertices;
-
-        dx = dx + scaleOffset.x;
         
         // Get rotation   
         Matrix3x3 R = IGB283Transform.Rotate(angle * Time.deltaTime);
@@ -88,22 +81,11 @@ public class DisplayObject : MonoBehaviour
         ColorWheel();
         
         //Move between two points
-        if(distanceTravelled >= end  || distanceTravelled < 0)
+        if(mesh.bounds.center.x >= end  || mesh.bounds.center.x <= 0)
         {
-            Debug.Log("hi" + distanceTravelled);
             offset = -offset;
             scaleOffset = -scaleOffset;
-            // dx = -dx;
-            // scaleOffset.x = 1/scaleOffset.x;
-            // scaleOffset.y = 1/scaleOffset.y;
         }
-        
-        distanceTravelled += (offset.x + scaleOffset.x);
-        Debug.Log("Distance Travelled: " + distanceTravelled);
-        
-        // Debug.Log("M: " + M);
-        //end = 30
-        // end * scaleoffset
         
     }
 
@@ -211,7 +193,7 @@ public class DisplayObject : MonoBehaviour
         Color startColor = new Color(0.4f, 0.3f, 0.7f);
         Color endColor = new Color(0.6f, 0.9f, 0.7f);
 
-        float normalizedColor = distanceTravelled / end;
+        float normalizedColor = mesh.bounds.center.x / end;
 
         for (int i = 0; i < mesh.vertices.Length; i++)
         {
