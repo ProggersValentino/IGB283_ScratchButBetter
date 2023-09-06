@@ -21,7 +21,7 @@ public class DisplayObject : MonoBehaviour
     public float sx;
     public float sy;
 
-    
+
 
     public float end; // getter and setter methods for end property which get sets in ShapeSpawner for each clone 
 

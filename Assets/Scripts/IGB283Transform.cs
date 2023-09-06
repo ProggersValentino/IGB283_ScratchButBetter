@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class IGB283Transform : MonoBehaviour
 {
+    private Vector3 position;
+    public Vector3 Position
+    {
+        get
+        {
+            return position;
+        }
+        set
+        {
+            position = value;
+        }
+    }
+    
     // Start is called before the first frame update
     void Start()
     {

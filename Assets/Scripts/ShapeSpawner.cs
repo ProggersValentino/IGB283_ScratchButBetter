@@ -36,6 +36,8 @@ public class ShapeSpawner : MonoBehaviour
             //calculating magnitude for each spawn points  
             distanceToTravel = transformScript.getMagnitude(
                 transformScript.getVectorFromPoints(SP.startPosition, SP.endPosition));
+           
+            
             DO.end = (float)distanceToTravel; // each clone now has its own magnitude to follow 
             
             //spawning all necessary objects at the desired position
