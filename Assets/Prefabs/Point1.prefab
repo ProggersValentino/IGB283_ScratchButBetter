@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6805907473489883130}
   - component: {fileID: 9214099239659275467}
   - component: {fileID: -4679684829771944323}
+  - component: {fileID: -4529262144101688501}
   m_Layer: 0
   m_Name: Point1
   m_TagString: BKPoint
@@ -48,12 +49,6 @@ MonoBehaviour:
   isMoving: 0
   offset: {x: 0, y: 0, z: 0}
   screenPoint: {x: 0, y: 0, z: 0}
-  mat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  spawnPointLoco:
-  - {x: 0, y: 0, z: 1}
-  - {x: 0, y: 1, z: 1}
-  - {x: 1, y: 1, z: 1}
-  - {x: 1, y: 0, z: 1}
 --- !u!135 &-4679684829771944323
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -67,3 +62,23 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 1, y: 1, z: 0}
+--- !u!114 &-4529262144101688501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805907473489883132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035a6a929791fd54ca59f22d7b51777d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  mat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  spawnPointLoco:
+  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 1, z: 1}
+  - {x: 1, y: 1, z: 1}
+  - {x: 1, y: 0, z: 1}
+  movePoint: {x: -18, y: 5, z: 1}

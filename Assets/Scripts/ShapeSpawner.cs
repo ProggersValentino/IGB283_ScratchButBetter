@@ -19,8 +19,13 @@ public class ShapeSpawner : MonoBehaviour
     
     public GameObject shape;
     private DisplayObject DO;
+    private Points _points;
     private double distanceToTravel;
+    public spawnPoints SPointInfo;
     
+    //spawn variable for origin
+    public Vector3 worldOrigin = Vector3.zero;
+
     public List<spawnPoints> spawningPoints = new List<spawnPoints>();
 
     // Start is called before the first frame update
@@ -29,27 +34,10 @@ public class ShapeSpawner : MonoBehaviour
         //getting the needed scripts to calcualte 
         transformScript = GetComponent<IGB283Transform>();
         DO = shape.GetComponent<DisplayObject>();
+        // SPointInfo = GetComponent<spawnPoints>();
         
-        //spawns in points at desired positions  
-        foreach (spawnPoints SP in spawningPoints)
-        {
-            //calculating magnitude for each spawn points  
-            distanceToTravel = transformScript.getMagnitude(
-                transformScript.getVectorFromPoints(SP.startPosition, SP.endPosition));
-           
-            
-            DO.end = (float)distanceToTravel; // each clone now has its own magnitude to follow 
-            
-            //spawning all necessary objects at the desired position
-            //Display the object
-            //Translate it to the point that we want it, using
-            Instantiate(SP.StartPoint, SP.startPosition, Quaternion.identity);
-            Instantiate(SP.StartPoint, SP.endPosition, Quaternion.identity);
-            Instantiate(shape, SP.startPosition, Quaternion.identity);
-            
-            Debug.Log($"magnitude for {shape} " + DO.end);
-            
-        }
+        
+       SpawnObjects(spawningPoints);
         
         // Debug.Log( transformScript.getVectorFromPoints(spawningPoints[0].startPosition, spawningPoints[0].endPosition));
         // Debug.Log(distanceToTravel);
@@ -62,8 +50,51 @@ public class ShapeSpawner : MonoBehaviour
     {
         
     }
+    /*
+        spawn in the point at origin
+        after spawning in translate to desired point (thus setting our arbutary origin for the mesh)
+         
+      
+     */
 
+    public void SpawnObjects(List<spawnPoints> spawningPoints)
+    {
+        //spawns in points at desired positions  
+        foreach (spawnPoints SP in spawningPoints)
+        {
+            _points = SP.StartPoint.GetComponent<Points>();
+
+            //calculating magnitude for each spawn points  
+            distanceToTravel = transformScript.getMagnitude(
+                transformScript.getVectorFromPoints(SP.startPosition, SP.endPosition));
+
+
+            DO.end = (float)distanceToTravel; // each clone now has its own magnitude to follow 
+
+            //spawning all necessary objects at the desired position
+            Instantiate(SP.StartPoint, SP.startPosition, Quaternion.identity); //Display the object
+
+            //Translate it to the point that we want it, using
+            // _points.TranslatePoint(SP.startPosition);
+
+            Instantiate(SP.StartPoint, SP.endPosition, Quaternion.identity);
+            // _points.TranslatePoint(SP.endPosition);
+
+            // Instantiate(shape, SP.startPosition, Quaternion.identity);
+
+            // Debug.Log();
+        }
+        
+    }
     
+    //translate the point to desired location 
+    public Matrix3x3 ToPoint(Vector3 desiredPoint)
+    {
+        return null;
+    }
+
+
+
 }
 
 //container for list of spawnpoints 
