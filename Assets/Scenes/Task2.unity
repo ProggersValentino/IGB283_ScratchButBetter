@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.1802834, g: 0.22571412, b: 0.30692214, a: 1}
+>>>>>>> dc54770c6afa475d3d663b5a2ead91e28f0c7ea5
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,14 +213,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.011062884, y: 0.9059972, z: -0.4224734, w: 0.023724431}
+  m_LocalPosition: {x: -6.41, y: 2.29, z: -21.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 177, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,11 +338,11 @@ MonoBehaviour:
   shape: {fileID: 2541134210325923879, guid: c1248a2e6dbcee74d981aae2cd8284d9, type: 3}
   spawningPoints:
   - StartPoint: {fileID: 6805907473489883132, guid: 2f5eec8b9f22eae41b7c20d81cc50d85, type: 3}
-    startPosition: {x: -18, y: 5, z: 0}
-    endPosition: {x: 18, y: 5, z: 0}
+    startPosition: {x: -18, y: 5, z: 1}
+    endPosition: {x: 18, y: 5, z: 1}
   - StartPoint: {fileID: 6805907473489883132, guid: 2f5eec8b9f22eae41b7c20d81cc50d85, type: 3}
-    startPosition: {x: -18, y: -5, z: 0}
-    endPosition: {x: 18, y: -5, z: 0}
+    startPosition: {x: -18, y: -5, z: 1}
+    endPosition: {x: 18, y: -5, z: 1}
 --- !u!4 &1443529535
 Transform:
   m_ObjectHideFlags: 0

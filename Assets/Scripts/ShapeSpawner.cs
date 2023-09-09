@@ -41,6 +41,8 @@ public class ShapeSpawner : MonoBehaviour
             DO.end = (float)distanceToTravel; // each clone now has its own magnitude to follow 
             
             //spawning all necessary objects at the desired position
+            //Display the object
+            //Translate it to the point that we want it, using
             Instantiate(SP.StartPoint, SP.startPosition, Quaternion.identity);
             Instantiate(SP.StartPoint, SP.endPosition, Quaternion.identity);
             Instantiate(shape, SP.startPosition, Quaternion.identity);
