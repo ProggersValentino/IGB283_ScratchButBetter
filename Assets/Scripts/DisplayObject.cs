@@ -160,32 +160,6 @@ public class DisplayObject : MonoBehaviour
         };
 
         mesh.colors = colours;
-        // {
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.4f, 0.3f, 0.7f),
-        //     new Color(0.4f, 0.3f, 0.7f),
-        //     new Color(0.4f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        //     new Color(0.8f, 0.3f, 0.7f),
-        // };
-
     }
 
     public void ColorWheel()
