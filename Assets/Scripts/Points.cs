@@ -6,12 +6,18 @@ using UnityEngine;
 public class Points : MonoBehaviour
 {
     public Mesh mesh;
+    private MeshCollider MC;
+    
     public Material mat;
     public Vector3[] spawnPointLoco;
+    public Vector3 worldOrigin = Vector3.zero;
 
-    public ShapeSpawner spawnPoints;
+    // public ShapeSpawner spawnPoints;
     
     public Vector3 movePoint = new Vector3();
+    
+    //position 
+    private Vector3 position;
 
     private void Awake()
     {
@@ -21,15 +27,23 @@ public class Points : MonoBehaviour
         
         mat = GetComponent<MeshRenderer>().material;
         mesh = GetComponent<MeshFilter>().mesh;
-        Display();
+
+        MC = GetComponent<MeshCollider>();
+        MC.sharedMesh = mesh;
+
+        position = mesh.bounds.center;
         
+        
+        Display();
+
         
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        TranslatePoint(spawnPoints.SPointInfo.startPosition);
+       
+        TranslatePoint(movePoint);
     }
 
     // Update is called once per frame
@@ -56,7 +70,7 @@ public class Points : MonoBehaviour
     }
     
     
-    public void TranslatePoint(Vector3 curPosition)
+    public Matrix3x3 TranslatePoint(Vector3 curPosition)
     {
         // Get the vertices from the matrix
         Vector3[] vertices = mesh.vertices;
@@ -76,7 +90,9 @@ public class Points : MonoBehaviour
         mesh.vertices = vertices;
     
         // Recalculate the bounding volume
-        mesh.RecalculateBounds(); 
+        mesh.RecalculateBounds();
+
+        return M;
     }
     
 }
