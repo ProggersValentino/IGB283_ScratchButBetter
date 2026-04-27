@@ -1,2 +1,2 @@
 # IGB283_ScratchButBetter
-Where we use our own scratch methods to create cool things
+Using our mathmatical implementations to create, move and resize a mesh
